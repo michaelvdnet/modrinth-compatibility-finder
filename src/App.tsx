@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import ModloadVersionGrid from "./Components/ModloaderVersionGrid";
+import { ModrinthProject } from "./Modrinth/project";
+import { useColorScheme } from "@mui/joy/styles";
+import ModManagement from "./Components/ModManagement";
+import { Divider, Sheet, Typography } from "@mui/joy";
 
 function App() {
+  const [projects, setProjects] = useState<ModrinthProject[]>([]);
+  const { setMode } = useColorScheme();
+  setMode("dark");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Sheet sx={{ height: "100%" }}>
+      <Sheet sx={{ padding: "32px" }}>
+        <Typography level="h1">Modrinth Compatibility Finder</Typography>
+        <ModManagement projects={projects} setProjects={setProjects} />
+        <Divider />
+        <ModloadVersionGrid projects={projects as ModrinthProject[]} />
+      </Sheet>
+    </Sheet>
   );
 }
 
